@@ -1,0 +1,126 @@
+<div class="container-fluid">
+  <div class="row content">
+ <!--   <div class="col-sm-3 sidenav hidden-xs">
+      <h2>Logo</h2>
+      <ul class="nav nav-pills nav-stacked">
+        <li class="active"><a href="#section1">Dashboard</a></li>
+        <li><a href="#section2">Age</a></li>
+        <li><a href="#section3">Gender</a></li>
+        <li><a href="#section3">Geo</a></li>
+      </ul><br>
+    </div> -->
+    <br>
+    
+    <div class="row">
+      <div class="well">
+        <h4>Tableau de bord</h4>
+        <p>Some text..</p>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="well">
+            <h4>Parents</h4>
+            <p>{{numParents}}</p> 
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="well">
+            <h4>Babysitters</h4>
+            <p>{{numBabysitters}}</p> 
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="well">
+            <h4>Seances</h4>
+            <p>{{numSeances}}</p> 
+          </div>
+        </div>
+        
+      </div>
+
+      
+
+      <h3 *ngIf="userBabysitter">Parents <span class="label label-default">Disponibles</span></h3>
+
+  <div class="row achievements-wrapper" *ngIf="userBabysitter">
+    <table class="table table-hover table-striped table-responsive">
+    <thead >
+      <tr>
+        <th>Prénom</th>
+        <th>Nom</th>
+        <th>Email</th>
+      </tr>
+      <tr>
+        <th><input type="text" id="inputFirstname" class="form-control" placeholder="Prénom" [(ngModel)]="firstname"></th>
+        <th><input type="text" id="inputLastname" class="form-control" placeholder="Nom" [(ngModel)]="lastname"></th>
+        <th> <input type="text" id="inputEmail" class="form-control" placeholder="Email" [(ngModel)]="email"> </th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let parent of Parents | customEmailFilter:email | customFirstnameFilter:firstname  | customLastnameFilter:lastname " (click)="redirectToUser(parent.username)">
+        <td>{{ parent.firstname }}</td>
+        <td>{{ parent.lastname }}</td>
+        <td>{{ parent.email }}</td>
+      </tr>
+      
+    </tbody>
+  </table>
+
+      </div>
+
+      
+
+      <h3 *ngIf="userParent">Babysitters <span class="label label-default">Disponible</span></h3>
+
+    <div class="row achievements-wrapper" *ngIf="userParent">
+
+       
+        
+    <table class="table table-hover table-striped table-responsive">
+    <thead>
+      <tr>
+        <th>Prénom</th>
+        <th>Nom</th>
+        <th>Email</th>
+        
+      </tr>
+       <tr>
+        <th><input type="text" id="inputFirstname" class="form-control" placeholder="Prénom" [(ngModel)]="firstname"></th>
+        <th><input type="text" id="inputLastname" class="form-control" placeholder="Nom" [(ngModel)]="lastname"></th>
+        <th> <input type="text" id="inputEmail" class="form-control" placeholder="Email" [(ngModel)]="email"> </th>
+        
+      </tr>
+   </thead>
+    <tbody>
+      <tr *ngFor="let babysitter of Babysitters | customEmailFilter:email | customFirstnameFilter:firstname  | customLastnameFilter:lastname " (click)="redirectToUser(babysitter.username)">
+        <td>{{ babysitter.firstname }}</td>
+        <td>{{ babysitter.lastname }}</td>
+        <td>{{ babysitter.email }}</td>
+      </tr>
+      
+    </tbody>
+  </table>
+
+      </div>
+
+      <br/>
+      <br/>
+      <div class="row">
+        <div class="col-sm-8">
+          <div class="well">
+            <p>Text</p> 
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="well">
+            <p>Text</p> 
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+</div>

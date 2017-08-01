@@ -1,0 +1,43 @@
+<div class="jumbotron text-center">
+  <h1>Babycare</h1>
+  <p class="lead">Bienvenue à notre plate-forme de babysitting <strong>Babycare</strong></p>
+  <div>
+    <a *ngIf="!authService.loggedIn()" routerLink="/register" class="btn btn-primary">S'enregister</a>
+    <a *ngIf="!authService.loggedIn()" routerLink="/login" class="btn btn-default">Se connecter</a>
+    <a *ngIf="authService.loggedIn()" routerLink="/seance" class="btn btn-success">Voir Seances</a>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      
+      <img src="https://image.flaticon.com/icons/svg/437/437544.svg" alt="placeholder image" width="140" height="140">
+      <div class="caption">
+        <h3>Parents</h3>
+        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-md-4">
+    <div class=thumbnail> <img src="https://image.flaticon.com/icons/svg/75/75335.svg" alt="Generic placeholder image" width="140" height="140">
+      <div class=caption>
+        <h3>Babysitters</h3>
+        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-md-4">
+    <div class=thumbnail> <img src="https://image.flaticon.com/icons/svg/73/73054.svg" alt="Generic placeholder image" width="140" height="140">
+      <div class=caption>
+        <h3>Communauté</h3>
+        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+      </div>
+    </div>
+  </div>
+
+
+
+</div>

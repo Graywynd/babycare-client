@@ -1,0 +1,128 @@
+<h1 class="page-header">Flux Seances</h1>
+
+<!-- Custom Success/Error Message -->
+<div class="row show-hide-message" *ngIf="message && newPost">
+  <div [ngClass]="messageClass">
+    {{ message }}
+  </div>
+</div>
+
+<!-- New Post Button -->
+<button type="button" name="button" class="btn btn-warning" *ngIf="!newPost" (click)="newSeanceForm()">Nouvelle Seance</button>
+
+<!-- Reload Button -->
+<button [disabled]="loadingSeances" type="button" name="button" class="btn btn-default" *ngIf="!newPost" (click)="reloadSeances()"><span class="glyphicon glyphicon-repeat"></span>&nbsp;&nbsp;Recharger</button>
+
+<br />
+<br />
+
+<!-- New Blog Form -->
+<form [formGroup]="form" name="seanceForm" (submit)="onSeanceSubmit()" *ngIf="newPost">
+  <!-- Title Input -->
+  <div class="form-group">
+    <label for="title">Titre</label>
+    <div [ngClass]="{'has-success': form.controls.title.valid, 'has-error': form.controls.title.dirty && form.controls.title.errors}">
+      <input type="text" name="title" class="form-control" placeholder="*Titre Seance" autocomplete="off" formControlName="title" />
+      <ul class="help-block">
+        <li *ngIf="form.controls.title.dirty && form.controls.title.errors?.required">Ce champs est requis.</li>
+        <li *ngIf="(form.controls.title.dirty && form.controls.title.errors?.minlength) || (form.controls.title.dirty && form.controls.title.errors?.maxlength)">Max length: 50, Min length: 5</li>
+        <li *ngIf="form.controls.title.dirty && form.controls.title.errors?.alphaNumericValidation">Doit être une lettre ou un numéro</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Body Input -->
+  <div class="form-group">
+    <label for="body">Desciption</label>
+    <div [ngClass]="{'has-success': form.controls.body.valid, 'has-error': form.controls.body.dirty && form.controls.body.errors}">
+      <textarea name="body" rows="8" cols="80" placeholder="*Description" class="form-control" formControlName="body"></textarea>
+      <ul class="help-block">
+        <li *ngIf="form.controls.body.dirty && form.controls.body.errors?.required">Ce champs est requis.</li>
+        <li *ngIf="(form.controls.body.dirty && form.controls.body.errors?.minlength) || (form.controls.body.dirty && form.controls.body.errors?.maxlength)">Longueur max: 500, Longueur: 5</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="date">Date et heure de seance</label>
+    <div [ngClass]="{'has-success': form.controls.date.valid, 'has-error': form.controls.date.dirty && form.controls.date.errors}">
+       <input type="datetime-local" name="date" class="form-control" formControlName="date">
+       <ul class="help-block">
+        <li *ngIf="form.controls.date.dirty && form.controls.date.errors?.required">Ce champs est requis.</li>
+       </ul>
+    </div>
+  </div>
+
+  <!-- Go Back Button -->
+  <button [disabled]="processing" type="button" name="button" (click)="goBack()" class="btn btn-warning">Retourner</button>
+  <!-- Submit Button -->
+  <button [disabled]="processing || !form.valid" type="submit" name="button" class="btn btn-success">Soumettre</button>
+
+</form>
+<!-- New Blog Form -->
+
+<!-- Panel Start -->
+<div *ngIf="!newPost">
+  <!-- Panel Outer Layer -->
+  <div class="panel panel-primary" *ngFor="let seance of seancePosts">
+
+    <!-- Panel Title -->
+    <div class="panel-heading">
+      <h3 class="panel-title">{{seance.title}}</h3>
+    </div>
+
+    <!-- Panel Body -->
+    <div class="panel-body">
+     {{ seance.body }}
+    </div>
+
+    <!-- Panel Footer Start -->
+    <div class="panel-footer">
+      <strong>Publiée par: </strong>{{ seance.createdBy   }}
+      <br />
+      <strong>Date et heure : </strong>{{ seance.StartAt | date:'MM/dd/yyyy  h:mma' }}
+      <br />
+      <strong>Crée le : </strong>{{ seance.createdAt | date:'MM/dd/yyyy  h:mma' }}
+      <br />
+      <div>
+        <strong>Intérêts: </strong>{{ seance.interested }}
+        <br />
+      </div>
+
+      <!-- Edit Button -->
+      <a [routerLink]="['/edit-seance/', seance._id]" *ngIf="username === seance.createdBy"><button type="button" name="button" class="btn btn-sm btn-info">Modifier</button></a>
+      <!-- Delete Button -->
+      <a [routerLink]="['/delete-seance/', seance._id]" *ngIf="username === seance.createdBy"><button type="button" name="button" class="btn btn-sm btn-danger">Supprimer</button></a>
+
+      <!-- Likes Dropdown  -->
+      <div class="dropdown">
+        <!-- Like Button -->
+        <button type="button" name="button" class="btn btn-sm btn-warning" (click)="likeSeance(seance._id)"><span class="glyphicon glyphicon-eye-open" >&nbsp;</span>Intérêts : {{ seance.interested }}</button>
+        <!-- Dropdown Menu Items -->
+        <div class="dropdown-content">
+          <a [routerLink]="['/user/', liker]" *ngFor="let liker of seance.InterestedBy">{{ liker }}</a>
+        </div>
+      </div>
+     
+
+    </div>
+    <!-- Panel Footer End -->
+
+    <!-- Post Comment Box: Start -->
+    <ul class="list-group">
+      <li class="list-group-item">
+        <button type="button" name="button" class="btn btn-sm btn-danger" (click)="draftComment()">Soumettre Commentaire</button>
+        <br />
+        <!-- <form>
+          <textarea name="comment" rows="10" cols="30" class="form-control"></textarea>
+          <button type="button" name="button" class="btn btn-sm btn-info">Submit Post</button>
+          <button type="button" name="button" class="btn btn-sm btn-danger">Cancel</button>
+        </form> -->
+      </li>
+    </ul>
+    <!-- Post Comment Box: End -->
+
+  </div>
+  <!-- Panel Outer Layer -->
+</div>
+<!-- Panel End -->

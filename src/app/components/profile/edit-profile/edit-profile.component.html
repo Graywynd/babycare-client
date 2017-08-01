@@ -1,0 +1,61 @@
+<h1 class="page-header">Modifier les informations utilisateur</h1>
+
+<!-- Custom Success/Erro Message -->
+<div class="row show-hide-message" *ngIf="message">
+  <div [ngClass]="messageClass">
+    {{ message }}
+  </div>
+</div>
+
+<form (submit)="updateUserSubmit()" *ngIf="!loading">
+  <!-- Title Field -->
+  <div class="row">
+  <div class="form-group col-md-6">
+    <label for="firstname">Prénom</label>
+    <!-- Title Input -->
+    <input [disabled]="processing" type="text" name="firstname" placeholder="*Prénom" class="form-control" [(ngModel)]="user.firstname" />
+  </div>
+
+  <div class="form-group col-md-6">
+    <label for="lastname">Nom</label>
+    <!-- Title Input -->
+    <input [disabled]="processing" type="text" name="lastname" placeholder="*Nom" class="form-control" [(ngModel)]="user.lastname" />
+  </div>
+  </div>
+
+  <!-- Body Field -->
+  <div class="row">
+  <div class="form-group col-md-6">
+    <label for="email">Email</label>
+    <!-- Body Input -->
+   <input [disabled]="processing" type="text" name="email" placeholder="*Email" class="form-control" [(ngModel)]="user.email" />
+  </div>
+
+  <div class="form-group col-md-6">
+    <label for="address">Adresse</label>
+    <!-- Body Input -->
+   <input [disabled]="processing" type="text" name="address" placeholder="*Adresse" class="form-control" [(ngModel)]="user.address" />
+  </div>
+
+  </div>
+
+  <div class="form-group">
+    <label for="birthdate">Date de naissance</label>
+    <!-- Body Input -->
+    <input [disabled]="processing" type="date" name="birthdate" class="form-control" [(ngModel)]="user.Birthdate">
+  </div>
+
+  <div class="form-group">
+    <label for="profilepic">Lien vers image de profil </label>
+    <!-- Body Input -->
+    <input [disabled]="processing" type="url" name="profilepic" class="form-control" [(ngModel)]="user.profilepic">
+  </div>
+
+
+  
+  <!-- Go Back Button -->
+  <button [disabled]="processing" type="button" name="button" class="btn btn-success" (click)="goBack()">Retourner</button>
+  <!-- Save Changes Button -->
+  <button [disabled]="processing" type="submit" name="save" class="btn btn-info">Sauvegarder les modifications</button>
+
+</form>
