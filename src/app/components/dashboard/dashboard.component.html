@@ -14,53 +14,75 @@
     <div class="row">
       <div class="well">
         <h4>Tableau de bord</h4>
-        <p>Some text..</p>
+        <p>Cette section est un petit aperçu de l'utilisateur pour l'aider à naviguer la plate-forme.</p>
       </div>
-      <div class="row">
-        <div class="col-sm-4">
-          <div class="well">
-            <h4>Parents</h4>
-            <p>{{numParents}}</p> 
-          </div>
-        </div>
-        <div class="col-sm-4">
+      <div class="row" *ngIf="userParent">
+        <div class="col-sm-4"  >
           <div class="well">
             <h4>Babysitters</h4>
             <p>{{numBabysitters}}</p> 
           </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-4" >
           <div class="well">
             <h4>Seances</h4>
-            <p>{{numSeances}}</p> 
+            <p>{{numSeancesParent}}</p> 
           </div>
         </div>
-        
+        <div class="col-sm-4" >
+          <div class="well">
+            <h4>Invitations</h4>
+            <p>{{numInvitationParent}}</p> 
+          </div>
+        </div>
+       </div>
+      <div class="row" *ngIf="userBabysitter">
+       <div class="col-sm-6" >
+          <div class="well">
+            <h4>Parents</h4>
+            <p>{{numParents}}</p> 
+          </div>
+        </div>
+       <div class="col-sm-6">
+          <div class="well">
+            <h4>Invitations</h4>
+            <p>{{numInvitationBabysitter}}</p> 
+          </div>
+        </div>
       </div>
 
-      
+ <div *ngIf="userBabysitter"> 
+  <div class="panel panel-primary">
 
-      <h3 *ngIf="userBabysitter">Parents <span class="label label-default">Disponibles</span></h3>
+    <!-- Panel Title -->
+    <div class="panel-heading">
+      <h3 class="panel-title">Parents <span class="label label-default">Disponibles</span></h3>
+    </div>
 
-  <div class="row achievements-wrapper" *ngIf="userBabysitter">
+    <!-- Panel Body -->
+    <div class="panel-body">
+       <div class="row achievements-wrapper">
     <table class="table table-hover table-striped table-responsive">
     <thead >
       <tr>
         <th>Prénom</th>
         <th>Nom</th>
+        <th>Nom utilisateur</th>
         <th>Email</th>
       </tr>
       <tr>
         <th><input type="text" id="inputFirstname" class="form-control" placeholder="Prénom" [(ngModel)]="firstname"></th>
         <th><input type="text" id="inputLastname" class="form-control" placeholder="Nom" [(ngModel)]="lastname"></th>
+        <th> <input type="text" id="inputUsername" class="form-control" placeholder="Nom utilisateur" [(ngModel)]="username"> </th>
         <th> <input type="text" id="inputEmail" class="form-control" placeholder="Email" [(ngModel)]="email"> </th>
         
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let parent of Parents | customEmailFilter:email | customFirstnameFilter:firstname  | customLastnameFilter:lastname " (click)="redirectToUser(parent.username)">
+      <tr *ngFor="let parent of Parents | customEmailFilter:email | customFirstnameFilter:firstname  | customLastnameFilter:lastname | customUsernameFilter:username" (click)="redirectToUser(parent.username)">
         <td>{{ parent.firstname }}</td>
         <td>{{ parent.lastname }}</td>
+        <td>{{ parent.username }}</td>
         <td>{{ parent.email }}</td>
       </tr>
       
@@ -68,53 +90,77 @@
   </table>
 
       </div>
+    </div>
 
+     <div class="panel-footer">
       
+      </div>
 
-      <h3 *ngIf="userParent">Babysitters <span class="label label-default">Disponible</span></h3>
 
-    <div class="row achievements-wrapper" *ngIf="userParent">
+  </div>
+  </div>
 
-       
-        
+
+ 
+
+  <div *ngIf="userParent"> 
+  <div class="panel panel-primary">
+
+    <!-- Panel Title -->
+    <div class="panel-heading">
+      <h3 class="panel-title">Babysitters <span class="label label-default">Disponible</span></h3>
+    </div>
+
+    <!-- Panel Body -->
+    <div class="panel-body">
+      <div class="row achievements-wrapper" *ngIf="userParent">
     <table class="table table-hover table-striped table-responsive">
     <thead>
       <tr>
         <th>Prénom</th>
         <th>Nom</th>
+        <th>Nom utilisateur</th>
         <th>Email</th>
         
       </tr>
        <tr>
         <th><input type="text" id="inputFirstname" class="form-control" placeholder="Prénom" [(ngModel)]="firstname"></th>
         <th><input type="text" id="inputLastname" class="form-control" placeholder="Nom" [(ngModel)]="lastname"></th>
+        <th> <input type="text" id="inputUsername" class="form-control" placeholder="Nom utilisateur" [(ngModel)]="username"> </th>
         <th> <input type="text" id="inputEmail" class="form-control" placeholder="Email" [(ngModel)]="email"> </th>
         
       </tr>
    </thead>
     <tbody>
-      <tr *ngFor="let babysitter of Babysitters | customEmailFilter:email | customFirstnameFilter:firstname  | customLastnameFilter:lastname " (click)="redirectToUser(babysitter.username)">
+      <tr *ngFor="let babysitter of Babysitters | customEmailFilter:email | customFirstnameFilter:firstname  | customLastnameFilter:lastname | customUsernameFilter:username" (click)="redirectToUser(babysitter.username)">
         <td>{{ babysitter.firstname }}</td>
         <td>{{ babysitter.lastname }}</td>
+        <td>{{ babysitter.username }}</td>
         <td>{{ babysitter.email }}</td>
       </tr>
       
     </tbody>
   </table>
+      </div>
+    </div>
 
+     <div class="panel-footer">
+      
       </div>
 
-      <br/>
-      <br/>
+
+  </div>
+  </div>
+
       <div class="row">
         <div class="col-sm-8">
           <div class="well">
-            <p>Text</p> 
+            <p></p> 
           </div>
         </div>
         <div class="col-sm-4">
           <div class="well">
-            <p>Text</p> 
+            <p></p> 
           </div>
         </div>
       </div>

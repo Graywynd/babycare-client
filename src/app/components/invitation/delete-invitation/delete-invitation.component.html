@@ -1,4 +1,4 @@
-<h1 class="page-header">Supprimer Seance</h1>
+<h1 class="page-header">Supprimer Invitation</h1>
 
 <!-- Custom Success/Error Message -->
 <div class="row show-hide-message" *ngIf="message">
@@ -8,7 +8,7 @@
 </div>
 
 <!-- Modal Confirmation Window -->
-<div class="col-md-6" *ngIf="foundSeance">
+<div class="col-md-6" *ngIf="foundInvitation">
   <!-- Model Outer Layer -->
   <div class="modal-content">
     <!-- Modal Header -->
@@ -21,15 +21,15 @@
 
     <!-- Modal Body -->
     <div class="modal-body">
-      <p>Êtes-vous sûr de vouloir supprimer cette séance?</p>
+      <p>Êtes-vous sûr de vouloir supprimer cette invitation?</p>
     </div>
 
     <!-- Modal Footer -->
     <div class="modal-footer">
       <!-- Yes Button -->
-      <button [disabled]="processing" type="button" name="button" class="btn btn-success" (click)="deleteSeance()">Oui</button>
+      <button [disabled]="processing" type="button" name="button" class="btn btn-success" (click)="deleteInvitation()">Oui</button>
       <!-- No Button -->
-      <a routerLink="/seance"><button [disabled]="processing" type="button" name="button" class="btn btn-danger">Non</button></a>
+      <a routerLink="/invitations"><button [disabled]="processing" type="button" name="button" class="btn btn-danger">Non</button></a>
     </div>
   </div>
 
@@ -40,23 +40,25 @@
     <!-- Panel Heading -->
     <div class="panel-heading">
       <!-- Panel Title -->
-      <h3 class="panel-title">{{ seance.title }}</h3>
+      <h3 class="panel-title">{{ invitation.title }}</h3>
     </div>
 
     <!-- Panel Body -->
     <div class="panel-body">
-      {{ seance.body }}
+      {{ invitation.body }}
     </div>
 
     <!-- Panel Footer -->
     <div class="panel-footer">
-      <strong>Publié par: </strong> {{ seance.createdBy }}
+      <strong>Publié par: </strong> {{ invitation.createdBy }}
       <br />
-      <strong>Date et heure: </strong> {{ seance.StartAt | date:'MM/dd/yyyy  h:mma' }}
+      <strong>Invité: </strong> {{ invitation.Invited }}
       <br />
-      <strong>Durée : </strong>{{ seance.duration }} h
+      <strong>Date et heure: </strong> {{ invitation.StartAt | date:'MM/dd/yyyy  h:mma' }}
       <br />
-      <strong>Créee le: </strong> {{ seance.createdAt | date:'MM/dd/yyyy  h:mma' }}
+      <strong>Durée : </strong>{{ invitation.duration }} h
+      <br />
+      <strong>Créee le: </strong> {{ invitation.createdAt | date:'MM/dd/yyyy  h:mma' }}
     </div>
   </div>
 

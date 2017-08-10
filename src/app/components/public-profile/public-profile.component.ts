@@ -9,8 +9,13 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class PublicProfileComponent implements OnInit {
 
- currentUrl;
+  currentUrl;
   user;
+  gender;
+  profiletype;
+  currentUser;
+  currentuserParent = false;
+  currentuserBabysitter = false;
   foundProfile = false;
   messageClass;
   message;
@@ -30,8 +35,23 @@ export class PublicProfileComponent implements OnInit {
         this.message = data.message; // Return error message
       } else {
         this.user = data.user;
+        this.profiletype = data.profiletype;
+
+        if(this.user.gender === "f"){
+        this.gender = "Female";
+      }
+      if(this.user.gender === "m"){
+        this.gender = "Male;"
+      }
+
         this.foundProfile = true;
       }
     });
+
+    this.currentUser = JSON.parse(JSON.parse(JSON.stringify(localStorage.getItem("user"))));
+    if(this.currentUser.usertype === "parent")
+      this.currentuserParent = true ; 
+    if(this.currentUser.usertype === "babysitter")
+      this.currentuserBabysitter = true ; 
   }
 }

@@ -43,6 +43,9 @@ export class SeanceComponent implements OnInit {
       ])],
       date: ['', Validators.compose([
         Validators.required
+      ])],
+      duration: ['', Validators.compose([
+        Validators.required
       ])]
     })
   }
@@ -94,14 +97,14 @@ export class SeanceComponent implements OnInit {
     this.processing = true; // Disable submit button
     this.disableFormNewSeanceForm(); // Lock form
 
-    console
-
+    
     // Create blog object from form fields
     const seance = {
       title: this.form.get('title').value, // Title field
       body: this.form.get('body').value, // Body field
       createdBy: this.username, // CreatedBy field
-      start : this.form.get('date').value
+      start : this.form.get('date').value,
+      duration : this.form.get('duration').value
     }
 
     // Function to save blog into database

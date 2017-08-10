@@ -1,0 +1,112 @@
+<h1 class="page-header">Invitations</h1>
+
+<!-- Custom Success/Error Message -->
+<div class="row show-hide-message" *ngIf="message">
+  <div [ngClass]="messageClass">
+    {{ message }}
+  </div>
+</div>
+
+
+<div *ngIf="userParent">
+  <!-- Panel Outer Layer -->
+  <div class="panel panel-primary" *ngFor="let invite of invitationsParent">
+
+    <!-- Panel Title -->
+    <div class="panel-heading">
+      <h4 class="panel-title">Vous avez invité {{invite.Invited}}</h4>
+      <h3 class="panel-title">{{invite.title}}</h3>
+    </div>
+
+    <!-- Panel Body -->
+    <div class="panel-body">
+     {{ invite.body }}
+    </div>
+
+    <!-- Panel Footer Start -->
+    <div class="panel-footer">
+      <strong>Date et heure : </strong>{{ invite.StartAt | date:'MM/dd/yyyy  h:mma' }}
+      <br />
+      <strong>Durée : </strong>{{ invite.duration }} h
+       <br />
+      <strong>Crée le : </strong>{{ invite.createdAt | date:'MM/dd/yyyy  h:mma' }}
+      <br />
+      <br />
+
+      <button type="button" name="button" *ngIf="invite.confirmed" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-ok-circle" >&nbsp;</span> Confirmée </button>
+      <button type="button" name="button" *ngIf="!invite.confirmed" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-ban-circle" >&nbsp;</span> En attente </button>
+      <br />
+      <br />
+      
+      <!-- Edit Button -->
+      <a [routerLink]="['/edit-invite/', invite._id]" ><button type="button" name="button" class="btn btn-sm btn-info">Modifier</button></a>
+      <!-- Delete Button -->
+      <a [routerLink]="['/delete-invite/', invite._id]" ><button type="button" name="button" class="btn btn-sm btn-danger">Supprimer</button></a>
+
+    
+     
+
+    </div>
+    <!-- Panel Footer End -->
+
+    <!-- Post Comment Box: Start -->
+    <ul class="list-group">
+      <li class="list-group-item">
+       
+      </li>
+    </ul>
+    <!-- Post Comment Box: End -->
+
+  </div>
+  <!-- Panel Outer Layer -->
+</div>
+
+<div *ngIf="userBabysitter">
+  <!-- Panel Outer Layer -->
+  <div class="panel panel-primary" *ngFor="let invite of invitationsBabysitter">
+
+    <!-- Panel Title -->
+    <div class="panel-heading">
+      <h4 class="panel-title">Vous êtes invité par  {{invite.createdBy}}</h4>
+      <h3 class="panel-title">{{invite.title}}</h3>
+    </div>
+
+    <!-- Panel Body -->
+    <div class="panel-body">
+     {{ invite.body }}
+    </div>
+
+    <!-- Panel Footer Start -->
+    <div class="panel-footer">
+      <strong>Date et heure : </strong>{{ invite.StartAt | date:'MM/dd/yyyy  h:mma' }}
+      <br />
+      <strong>Durée : </strong>{{ invite.duration }} h
+       <br />
+      <strong>Crée le : </strong>{{ invite.createdAt | date:'MM/dd/yyyy  h:mma' }}
+      <br />
+      <br />
+      <br />
+
+      <button type="button" name="button" *ngIf="!invite.confirmed" class="btn btn-sm btn-success" (click)="ConfirmerInvite(invite._id)"><span class="glyphicon glyphicon-ok-circle" >&nbsp;</span> Confirmer </button>
+      <button type="button" name="button" *ngIf="invite.confirmed" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-ok-circle" >&nbsp;</span> Confirmée </button>
+      
+      
+
+    
+     
+
+    </div>
+    <!-- Panel Footer End -->
+
+    <!-- Post Comment Box: Start -->
+    <ul class="list-group">
+      <li class="list-group-item">
+      
+       
+      </li>
+    </ul>
+    <!-- Post Comment Box: End -->
+
+  </div>
+  <!-- Panel Outer Layer -->
+</div>

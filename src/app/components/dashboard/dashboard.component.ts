@@ -16,6 +16,7 @@ export class DashboardComponent implements OnInit {
   email = '';
   firstname = '';
   lastname = '';
+  username= '';
   userParent = false;
   userBabysitter = false;
   currentUser;
@@ -23,7 +24,9 @@ export class DashboardComponent implements OnInit {
   Babysitters;
   numParents;
   numBabysitters;
-  numSeances;
+  numSeancesParent;
+  numInvitationParent;
+  numInvitationBabysitter;
 
   constructor(
     private authService: AuthService,
@@ -52,8 +55,14 @@ export class DashboardComponent implements OnInit {
     this.userService.getBabysitterCount().subscribe(data => {
       this.numBabysitters = data.num; // Assign array to use in HTML
     });
-    this.userService.getSeanceCount().subscribe(data => {
-      this.numSeances = data.num; // Assign array to use in HTML
+    this.userService.getSeancesParentCount(this.currentUser.username).subscribe(data => {
+      this.numSeancesParent = data.num; // Assign array to use in HTML
+    });
+    this.userService.getInvitationsParentCount(this.currentUser.username).subscribe(data => {
+      this.numInvitationParent = data.num; // Assign array to use in HTML
+    });
+    this.userService.getInvitationsBabysitterCount(this.currentUser.username).subscribe(data => {
+      this.numInvitationBabysitter = data.num; // Assign array to use in HTML
     });
   }
 

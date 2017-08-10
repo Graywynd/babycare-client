@@ -11,6 +11,10 @@ import { EditSeanceComponent } from './components/seance/edit-seance/edit-seance
 import { DeleteSeanceComponent } from './components/seance/delete-seance/delete-seance.component';
 import { PublicProfileComponent } from './components/public-profile/public-profile.component';
 import { EditProfileComponent } from './components/profile/edit-profile/edit-profile.component';
+import { SendInviteComponent } from './components/send-invite/send-invite.component';
+import { InvitationComponent } from './components/invitation/invitation.component';
+import { EditInvitationComponent } from './components/invitation/edit-invitation/edit-invitation.component';
+import { DeleteInvitationComponent } from './components/invitation/delete-invitation/delete-invitation.component';
 import { AuthGuard } from './guards/auth.guard';
 import { NotAuthGuard } from './guards/notauth.guard';
 
@@ -62,7 +66,26 @@ const appRoutes: Routes = [
     component: EditProfileComponent, // Edit Blog ROute
     canActivate: [AuthGuard] // User must be logge din to view this route
   },
-  
+   {
+    path: 'invite-babysitter/:username',
+    component: SendInviteComponent, // Edit Blog ROute
+    canActivate: [AuthGuard] // User must be logge din to view this route
+  },
+  {
+    path: 'invitations',
+    component: InvitationComponent, // Edit Blog ROute
+    canActivate: [AuthGuard] // User must be logge din to view this route
+  },
+   {
+    path: 'edit-invite/:id',
+    component: EditInvitationComponent, // Edit Blog ROute
+    canActivate: [AuthGuard] // User must be logge din to view this route
+  },
+  {
+    path: 'delete-invite/:id',
+    component: DeleteInvitationComponent, // Edit Blog ROute
+    canActivate: [AuthGuard] // User must be logge din to view this route
+  },
   
   { path: '**', component: HomeComponent }
 ];

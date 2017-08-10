@@ -66,9 +66,19 @@ export class UserService {
   }
 
 
-  getSeanceCount(){
+  getSeancesParentCount(username){
      this.createAuthenticationHeaders(); // Create headers
-    return this.http.get(this.domain + '/Seance/getCount', this.options).map(res => res.json());
+    return this.http.get(this.domain + '/Seance/getCountParent/'+username, this.options).map(res => res.json());
+  }
+
+   getInvitationsParentCount(username){
+     this.createAuthenticationHeaders(); // Create headers
+    return this.http.get(this.domain + '/Invitations/getCountParent/'+username, this.options).map(res => res.json());
+  }
+
+   getInvitationsBabysitterCount(username){
+     this.createAuthenticationHeaders(); // Create headers
+    return this.http.get(this.domain + '/Invitations/getCountBabysitter/'+username, this.options).map(res => res.json());
   }
 
 

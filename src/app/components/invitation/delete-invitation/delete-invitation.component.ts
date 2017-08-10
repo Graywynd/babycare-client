@@ -1,42 +1,45 @@
 import { Component, OnInit } from '@angular/core';
-import { SeanceService } from '../../../services/seance.service';
+import { InvitationService } from '../../../services/invitation.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-delete-seance',
-  templateUrl: './delete-seance.component.html',
-  styleUrls: ['./delete-seance.component.css']
+  selector: 'app-delete-invitation',
+  templateUrl: './delete-invitation.component.html',
+  styleUrls: ['./delete-invitation.component.css']
 })
-export class DeleteSeanceComponent implements OnInit {
+export class DeleteInvitationComponent implements OnInit {
 
   message;
   messageClass;
-  foundSeance = false;
+  foundInvitation = false;
   processing = false;
-  seance;
+  invitation;
   currentUrl;
 
   constructor(
-    private seanceService: SeanceService,
+    private invitationService: InvitationService,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) { }
 
   // Function to delete blogs
-  deleteSeance() {
+  deleteInvitation() {
     this.processing = true; // Disable buttons
     // Function for DELETE request
-    this.seanceService.deleteSeance(this.currentUrl.id).subscribe(data => {
+    this.invitationService.deleteInvitation(this.currentUrl.id).subscribe(data => {
       // Check if delete request worked
       if (!data.success) {
         this.messageClass = 'alert alert-danger'; // Return error bootstrap class
         this.message = data.message; // Return error message
+        setTimeout(() => {
+          this.router.navigate(['/invitations']); // Navigate back to route page
+        }, 2000);
       } else {
         this.messageClass = 'alert alert-success'; // Return bootstrap success class
         this.message = data.message; // Return success message
         // After two second timeout, route to blog page
         setTimeout(() => {
-          this.router.navigate(['/seance']); // Route users to blog page
+          this.router.navigate(['/invitations']); // Route users to blog page
         }, 2000);
       }
     });
@@ -45,22 +48,23 @@ export class DeleteSeanceComponent implements OnInit {
   ngOnInit() {
     this.currentUrl = this.activatedRoute.snapshot.params; // Get URL paramaters on page load
     // Function for GET request to retrieve blog
-    this.seanceService.getSingleSeance(this.currentUrl.id).subscribe(data => {
+    this.invitationService.getSingleInvitation(this.currentUrl.id).subscribe(data => {
       // Check if request was successfull
       if (!data.success) {
         this.messageClass = 'alert alert-danger'; // Return bootstrap error class
         this.message = data.message; // Return error message
       } else {
         // Create the blog object to use in HTML
-        this.seance = {
-          title: data.seance.title, // Set title
-          body: data.seance.body, // Set body
-          createdBy: data.seance.createdBy, // Set created_by field
-          createdAt: data.seance.createdAt,
-          StartAt : data.seance.StartAt,
-          duration : data.seance.duration // Set created_at field
+        this.invitation = {
+          title: data.invitation.title, // Set title
+          body: data.invitation.body, // Set body
+          createdBy: data.invitation.createdBy, // Set created_by field
+          createdAt: data.invitation.createdAt,
+          Invited : data.invitation.Invited,
+          StartAt : data.invitation.StartAt,
+          duration : data.invitation.duration // Set created_at field
         }
-        this.foundSeance = true; // Displaly blog window
+        this.foundInvitation = true; // Displaly blog window
       }
     });
   }
